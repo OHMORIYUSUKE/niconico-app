@@ -50,6 +50,38 @@
               "
             ></iframe>
             <p class="text-h6 mt-2">{{ videoTitle }}</p>
+
+            <v-row>
+              <v-col sm="7">
+                <p>{{ viewCounter }}回視聴・{{ startTime }}</p>
+              </v-col>
+
+              <v-col sm="5">
+                <v-row>
+                  <v-col sm="4">
+                    <p>
+                      <v-icon color="primary" class="goodbtn"
+                        >mdi-thumb-up</v-icon
+                      ><span
+                        class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                        >{{ likeCounter }}</span
+                      >
+                    </p>
+                  </v-col>
+                  <v-col sm="7">
+                    <p>
+                      <v-icon color="primary" class="goodbtn"
+                        >mdi-comment</v-icon
+                      ><span
+                        class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                        >{{ commentCounter }}</span
+                      >
+                    </p>
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+
             <v-divider></v-divider>
 
             <v-row class="mb-1 mt-3">
@@ -62,7 +94,10 @@
                 <p class="mt-4 font-weight-medium channelTitle">
                   {{ channelTitle }}
                 </p>
-                <p class="mt-1">{{ videoDescription }}</p>
+                <p class="mt-1" v-html="videoDescription"></p>
+                <v-chip :ripple="false">
+                  {{ genre }}
+                </v-chip>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -103,6 +138,18 @@
 import HelloWorld from "../components/HelloWorld.vue";
 import axios from "axios";
 
+function dateFomate(date) {
+  console.log("date", date);
+  const D = new Date(date);
+  console.log("D", D);
+  const y = D.getFullYear();
+  const month = ("00" + (D.getMonth() + 1)).slice(-2);
+  const d = ("00" + D.getDate()).slice(-2);
+
+  const updatedAt = y + "/" + month + "/" + d;
+  return updatedAt;
+}
+
 export default {
   name: "Video",
   data: () => ({
@@ -110,8 +157,13 @@ export default {
     vlist: [],
     videoTitle: String,
     videoDescription: String,
+    genre: String,
     userIconImage: String,
     channelTitle: String,
+    viewCounter: String,
+    likeCounter: String,
+    commentCounter: String,
+    startTime: String,
     error: String,
   }),
   components: {
@@ -134,10 +186,14 @@ export default {
     console.log(nowVideo); // display title
     console.log("タイトル", nowVideo.title);
     this.videoTitle = nowVideo.title;
-    this.videoDescription = nowVideo.description.replace(
-      /<("[^"]*"|'[^']*'|[^'">])*>/g,
-      ""
-    );
+    this.videoDescription = nowVideo.description;
+    this.genre = nowVideo.genre;
+
+    this.likeCounter = nowVideo.likeCounter.toLocaleString();
+    this.commentCounter = nowVideo.commentCounter.toLocaleString();
+
+    this.viewCounter = nowVideo.viewCounter.toLocaleString();
+    this.startTime = dateFomate(nowVideo.startTime);
     // ---
     const response = await axios
       .get(
@@ -180,10 +236,14 @@ export default {
       console.log(nowVideo); // display title
       console.log("タイトル", nowVideo.title);
       this.videoTitle = nowVideo.title;
-      this.videoDescription = nowVideo.description.replace(
-        /<("[^"]*"|'[^']*'|[^'">])*>/g,
-        ""
-      );
+      this.videoDescription = nowVideo.description;
+      this.genre = nowVideo.genre;
+
+      this.likeCounter = nowVideo.likeCounter.toLocaleString();
+      this.commentCounter = nowVideo.commentCounter.toLocaleString();
+
+      this.viewCounter = nowVideo.viewCounter.toLocaleString();
+      this.startTime = dateFomate(nowVideo.startTime);
 
       // ---
       const response = await axios
@@ -226,7 +286,11 @@ export default {
   color: black;
 }
 .channelTitle {
-  font-size: 20px;
+  font-size: 18px;
+}
+.goodbtn {
+  display: inline-flex;
+  vertical-align: middle;
 }
 
 figure {
