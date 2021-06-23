@@ -1,8 +1,6 @@
 module.exports = {
-  transpileDependencies: [
-    'vuetify'
-  ]
-}
+  transpileDependencies: ["vuetify"],
+};
 module.exports = {
   pages: {
     index: {
@@ -11,4 +9,3 @@ module.exports = {
     },
   },
 };
-
