@@ -8,9 +8,8 @@ const axios = require('axios');
 
 
 exports.handler = async (event, context) => {
-  const keyWord = event.queryStringParameters.q || ".";
-  const requestNumber = event.queryStringParameters.number || "1";
-  const URL = `https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search?q=${encodeURIComponent(keyWord)}&targets=title&fields=contentId,title,userId,description,genre,tags,thumbnailUrl,likeCounter,mylistCounter,viewCounter,commentCounter&filters[viewCounter][gte]=10000&_sort=-viewCounter&_offset=0&_limit=${encodeURIComponent(requestNumber)}&_context=apiguide`;
+  const userId = event.queryStringParameters.userId || "1";
+  const URL = `https://api.ce.nicovideo.jp/api/v1/user.info?user_id=${encodeURIComponent(userId)}&__format=json`;
   //const URL = '';
 
   const res = await axios.get(URL);
