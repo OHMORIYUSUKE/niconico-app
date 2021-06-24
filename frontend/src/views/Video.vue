@@ -52,32 +52,36 @@
             <p class="text-h6 mt-2">{{ videoTitle }}</p>
 
             <v-row>
-              <v-col sm="7">
+              <v-col sm="6">
                 <p>{{ viewCounter }}回視聴・{{ startTime }}</p>
               </v-col>
 
-              <v-col sm="5">
+              <v-col sm="6" class="mt-3">
                 <v-row>
-                  <v-col sm="4">
-                    <p>
-                      <v-icon color="primary" class="goodbtn"
-                        >mdi-thumb-up</v-icon
-                      ><span
-                        class="ml-2 font-weight-medium likeCounterNumber primary--text"
-                        >{{ likeCounter }}</span
-                      >
-                    </p>
-                  </v-col>
-                  <v-col sm="7">
-                    <p>
-                      <v-icon color="primary" class="goodbtn"
-                        >mdi-comment</v-icon
-                      ><span
-                        class="ml-2 font-weight-medium likeCounterNumber primary--text"
-                        >{{ commentCounter }}</span
-                      >
-                    </p>
-                  </v-col>
+                  <p class="mr-3 text-h6">
+                    <v-icon color="primary" class="goodbtn">mdi-comment</v-icon
+                    ><span
+                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      >{{ commentCounter }}</span
+                    >
+                  </p>
+
+                  <p class="ml-3 mr-3 text-h6">
+                    <v-icon color="primary" class="goodbtn"
+                      >mdi-playlist-music</v-icon
+                    ><span
+                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      >{{ mylistCounter }}</span
+                    >
+                  </p>
+
+                  <p class="ml-3 text-h6">
+                    <v-icon color="primary" class="goodbtn">mdi-thumb-up</v-icon
+                    ><span
+                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      >{{ likeCounter }}</span
+                    >
+                  </p>
                 </v-row>
               </v-col>
             </v-row>
@@ -95,9 +99,22 @@
                   {{ channelTitle }}
                 </p>
                 <p class="mt-1" v-html="videoDescription"></p>
-                <v-chip :ripple="false">
+                <v-chip :ripple="false" medium>
+                  <v-icon left> mdi-label-multiple </v-icon>
                   {{ genre }}
                 </v-chip>
+                <div class="justify-start mt-4 tags" flat tile>
+                  <v-chip
+                    :ripple="false"
+                    v-for="tag in tags"
+                    :key="tag"
+                    class="mb-2 mr-2"
+                    small
+                  >
+                    <v-icon left> mdi-tag </v-icon>
+                    {{ tag }}
+                  </v-chip>
+                </div>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -149,6 +166,12 @@ function dateFomate(date) {
   const updatedAt = y + "/" + month + "/" + d;
   return updatedAt;
 }
+function genreNullcheck(genre) {
+  if (genre == null) {
+    genre = "ジャンル未設定";
+  }
+  return genre;
+}
 
 export default {
   name: "Video",
@@ -158,10 +181,12 @@ export default {
     videoTitle: String,
     videoDescription: String,
     genre: String,
+    tags: [],
     userIconImage: String,
     channelTitle: String,
     viewCounter: String,
     likeCounter: String,
+    mylistCounter: String,
     commentCounter: String,
     startTime: String,
     error: String,
@@ -187,10 +212,13 @@ export default {
     console.log("タイトル", nowVideo.title);
     this.videoTitle = nowVideo.title;
     this.videoDescription = nowVideo.description;
-    this.genre = nowVideo.genre;
+    // 動画のジャンル
+    this.genre = genreNullcheck(nowVideo.genre);
+    this.tags = nowVideo.tags.split(" ");
 
     this.likeCounter = nowVideo.likeCounter.toLocaleString();
     this.commentCounter = nowVideo.commentCounter.toLocaleString();
+    this.mylistCounter = nowVideo.mylistCounter.toLocaleString();
 
     this.viewCounter = nowVideo.viewCounter.toLocaleString();
     this.startTime = dateFomate(nowVideo.startTime);
@@ -237,10 +265,13 @@ export default {
       console.log("タイトル", nowVideo.title);
       this.videoTitle = nowVideo.title;
       this.videoDescription = nowVideo.description;
-      this.genre = nowVideo.genre;
+      // 動画のジャンル
+      this.genre = genreNullcheck(nowVideo.genre);
+      this.tags = nowVideo.tags.split(" ");
 
       this.likeCounter = nowVideo.likeCounter.toLocaleString();
       this.commentCounter = nowVideo.commentCounter.toLocaleString();
+      this.mylistCounter = nowVideo.mylistCounter.toLocaleString();
 
       this.viewCounter = nowVideo.viewCounter.toLocaleString();
       this.startTime = dateFomate(nowVideo.startTime);
@@ -291,6 +322,9 @@ export default {
 .goodbtn {
   display: inline-flex;
   vertical-align: middle;
+}
+.tags {
+  display: inline-block;
 }
 
 figure {

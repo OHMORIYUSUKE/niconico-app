@@ -9,7 +9,7 @@
         <v-card-title class="text-h5 grey lighten-2"> NicoTube </v-card-title>
 
         <v-card-text>
-          <p>niconico動画もどきです。</p>
+          <p>YouTube風niconico動画です。</p>
           <p>APIのコール数が上限に達すると利用できなくなります。</p>
           <a href="https://twitter.com/uutan1108">作った人</a>
         </v-card-text>
