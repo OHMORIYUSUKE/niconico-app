@@ -103,6 +103,7 @@
                   <v-icon left> mdi-label-multiple </v-icon>
                   {{ genre }}
                 </v-chip>
+                <br>
                 <div class="justify-start mt-4 tags" flat tile>
                   <v-chip
                     :ripple="false"
