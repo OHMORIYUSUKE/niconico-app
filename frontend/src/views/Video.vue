@@ -130,7 +130,7 @@
                     ><span
                       :class="
                         $vuetify.breakpoint.smAndDown
-                          ? 'ml-0 font-weight-medium likeCounterNumber primary--text'
+                          ? 'ml-1 font-weight-medium likeCounterNumber primary--text'
                           : 'ml-2 font-weight-medium likeCounterNumber primary--text'
                       "
                       >{{ likeCounter }}</span
@@ -168,7 +168,7 @@
                 "
               >
                 <p
-                  :class="$vuetify.breakpoint.smAndDown ? 'mb-4' : 'mb-7'"
+                  :class="$vuetify.breakpoint.smAndDown ? 'mb-4 mt-2' : 'mb-7'"
                   v-html="videoDescription"
                 ></p>
                 <v-divider></v-divider>
@@ -222,6 +222,11 @@
         </v-row>
       </v-container>
     </div>
+    <v-footer padless color="grey lighten-3">
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} — <strong>NicoTube</strong>
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
