@@ -10,8 +10,12 @@
 
       <router-link to="/" class="title">
         <v-toolbar-title
-          ><v-icon large="true" color="rgb(255, 19, 19)">mdi-youtube</v-icon>
-          NicoTube</v-toolbar-title
+          ><v-icon large="true" color="rgb(255, 19, 19)"
+            >mdi-television-classic</v-icon
+          >
+          <span v-show="$vuetify.breakpoint.smAndUp" class="ml-2"
+            >NicoTube</span
+          ></v-toolbar-title
         >
       </router-link>
 
@@ -24,6 +28,7 @@
         hide-details
         single-line
         outlined
+        dense
       ></v-text-field>
 
       <v-btn depressed v-on:click="search_video()">
@@ -36,10 +41,10 @@
     <div class="maincontent">
       <v-container>
         <v-row>
-          <v-col sm="8">
+          <v-col sm="8" cols="12" xs="12">
             <iframe
               width="100%"
-              height="440"
+              :height="$vuetify.breakpoint.smAndDown ? 220 : 440"
               style="border: none"
               allowfullscreen="allowfullscreen"
               allow="autoplay"
@@ -49,36 +54,85 @@
                 '?oldScript=1&referer=&from=0&allowProgrammaticFullScreen=1'
               "
             ></iframe>
-            <p class="text-h6 mt-2">{{ videoTitle }}</p>
+            <p
+              :class="
+                $vuetify.breakpoint.smAndDown ? 'text-h6 mt-2' : 'text-h6 mt-2'
+              "
+            >
+              {{ videoTitle }}
+            </p>
 
             <v-row>
-              <v-col sm="6">
-                <p>{{ viewCounter }}回視聴・{{ startTime }}</p>
+              <v-col sm="6" cols="12" xs="12">
+                <p
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mb-0 pb-0 body-2'
+                      : 'mb-0 pb-0'
+                  "
+                >
+                  {{ viewCounter }}回視聴・{{ startTime }}
+                </p>
               </v-col>
 
-              <v-col sm="6" class="mt-3">
-                <v-row>
-                  <p class="mr-3 text-h6">
+              <v-col
+                sm="6"
+                :class="$vuetify.breakpoint.smAndDown ? 'mt-0' : 'mt-3'"
+                cols="12"
+                xs="12"
+              >
+                <v-row justify="center">
+                  <p
+                    :class="
+                      $vuetify.breakpoint.smAndDown
+                        ? 'mr-1 text-h6'
+                        : 'ml-0 mr-2 text-h6'
+                    "
+                  >
                     <v-icon color="primary" class="goodbtn">mdi-comment</v-icon
                     ><span
-                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      :class="
+                        $vuetify.breakpoint.smAndDown
+                          ? 'ml-1 font-weight-medium likeCounterNumber primary--text'
+                          : 'ml-2 font-weight-medium likeCounterNumber primary--text'
+                      "
                       >{{ commentCounter }}</span
                     >
                   </p>
 
-                  <p class="ml-3 mr-3 text-h6">
+                  <p
+                    :class="
+                      $vuetify.breakpoint.smAndDown
+                        ? 'ml-1 mr-1 text-h6'
+                        : 'ml-2 mr-2 text-h6'
+                    "
+                  >
                     <v-icon color="primary" class="goodbtn"
                       >mdi-playlist-music</v-icon
                     ><span
-                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      :class="
+                        $vuetify.breakpoint.smAndDown
+                          ? 'ml-1 font-weight-medium likeCounterNumber primary--text'
+                          : 'ml-2 font-weight-medium likeCounterNumber primary--text'
+                      "
                       >{{ mylistCounter }}</span
                     >
                   </p>
 
-                  <p class="ml-3 text-h6">
+                  <p
+                    :class="
+                      $vuetify.breakpoint.smAndDown
+                        ? 'ml-1 text-h6'
+                        : 'ml-2 text-h6'
+                    "
+                  >
                     <v-icon color="primary" class="goodbtn">mdi-thumb-up</v-icon
                     ><span
-                      class="ml-2 font-weight-medium likeCounterNumber primary--text"
+                      :class="
+                        $vuetify.breakpoint.smAndDown
+                          ? 'ml-0 font-weight-medium likeCounterNumber primary--text'
+                          : 'ml-2 font-weight-medium likeCounterNumber primary--text'
+                      "
                       >{{ likeCounter }}</span
                     >
                   </p>
@@ -87,24 +141,46 @@
             </v-row>
 
             <v-divider></v-divider>
-
-            <v-row class="mb-1 mt-3">
-              <v-col sm="1">
-                <v-avatar size="60">
+            <v-row :align="align" no-gutters class="mt-6 mb-3">
+              <v-col cols="1">
+                <v-avatar :size="$vuetify.breakpoint.smAndDown ? '40' : '60'">
                   <img :src="userIconImage" :alt="channelTitle" />
                 </v-avatar>
               </v-col>
-              <v-col sm="10" class="ml-5">
-                <p class="mt-4 font-weight-medium channelTitle">
+              <v-col
+                cols="9"
+                :class="$vuetify.breakpoint.smAndDown ? 'ml-6' : 'ml-4'"
+              >
+                <p
+                  :class="
+                    $vuetify.breakpoint.smAndDown
+                      ? 'mt-2'
+                      : 'mt-4 font-weight-medium channelTitle'
+                  "
+                >
                   {{ channelTitle }}
                 </p>
-                <p class="mt-1" v-html="videoDescription"></p>
-                <v-chip :ripple="false" medium>
+              </v-col>
+            </v-row>
+            <v-row class="mt-0">
+              <v-col v-show="$vuetify.breakpoint.smAndUp" cols="1"></v-col>
+              <v-col
+                :cols="$vuetify.breakpoint.smAndDown ? '12' : ''"
+                :class="
+                  $vuetify.breakpoint.smAndDown ? 'ml-0 mt-0 pt-0' : 'ml-4'
+                "
+              >
+                <p
+                  :class="$vuetify.breakpoint.smAndDown ? 'mb-4' : 'mb-7'"
+                  v-html="videoDescription"
+                ></p>
+                <v-divider></v-divider>
+                <v-chip class="mt-6" :ripple="false" medium>
                   <v-icon left> mdi-label-multiple </v-icon>
                   {{ genre }}
                 </v-chip>
-                <br>
-                <div class="justify-start mt-4 tags" flat tile>
+                <br />
+                <div class="justify-start mt-5 mb-5 tags" flat tile>
                   <v-chip
                     :ripple="false"
                     v-for="tag in tags"
