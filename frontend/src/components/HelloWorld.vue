@@ -11,7 +11,20 @@
         <v-card-text>
           <p>YouTube風niconico動画です。</p>
           <p>APIのコール数が上限に達すると利用できなくなります。</p>
-          <a href="https://twitter.com/uutan1108">作った人</a>
+          <p>
+            YouTubeバージョンも制作しました。-><a
+              href="https://practical-bose-c2c445.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              >MyTube</a
+            >
+          </p>
+          <a
+            href="https://twitter.com/uutan1108"
+            target="_blank"
+            rel="noopener noreferrer"
+            >作った人</a
+          >
         </v-card-text>
 
         <v-divider></v-divider>

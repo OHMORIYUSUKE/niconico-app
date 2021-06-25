@@ -10,8 +10,12 @@
 
       <router-link to="/" class="title">
         <v-toolbar-title
-          ><v-icon large="true" color="rgb(255, 19, 19)">mdi-youtube</v-icon>
-          NicoTube</v-toolbar-title
+          ><v-icon large="true" color="rgb(255, 19, 19)"
+            >mdi-television-classic</v-icon
+          >
+          <span v-show="$vuetify.breakpoint.smAndUp" class="ml-2"
+            >NicoTube</span
+          ></v-toolbar-title
         >
       </router-link>
 
@@ -24,6 +28,7 @@
         hide-details
         single-line
         outlined
+        dense
       ></v-text-field>
 
       <v-btn depressed v-on:click="search_video()">
@@ -51,8 +56,15 @@
             ></iframe>
           </v-col>
         </v-row>
-        <v-row no-gutters v-else>
-          <v-col v-for="article in articles" :key="article.contentId" sm="3">
+        <v-row no-gutters>
+          <v-col
+            v-for="article in articles"
+            :key="article.contentId"
+            cols="12"
+            sm="3"
+            md="4"
+            lg="3"
+          >
             <div class="card" elevation="1">
               <router-link :to="'/video/' + article.contentId">
                 <figure>
