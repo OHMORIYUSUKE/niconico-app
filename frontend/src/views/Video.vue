@@ -141,16 +141,13 @@
             </v-row>
 
             <v-divider></v-divider>
-            <v-row :align="align" no-gutters class="mt-6 mb-3">
+            <v-row :align="align" no-gutters class="mt-6 mb-0">
               <v-col cols="1">
                 <v-avatar :size="$vuetify.breakpoint.smAndDown ? '40' : '60'">
                   <img :src="userIconImage" :alt="channelTitle" />
                 </v-avatar>
               </v-col>
-              <v-col
-                cols="9"
-                :class="$vuetify.breakpoint.smAndDown ? 'ml-6' : 'ml-4'"
-              >
+              <v-col :class="$vuetify.breakpoint.smAndDown ? 'ml-6' : 'ml-4'">
                 <p
                   :class="
                     $vuetify.breakpoint.smAndDown
