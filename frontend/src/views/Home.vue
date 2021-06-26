@@ -104,11 +104,12 @@ export default {
     // 記事を取得する
     console.log("mounted()" + data.a);
     // ?q={}を取得する
-    console.log(this.$route.query.q);
     // ?q={}があったら検索ワードを変える
     if (this.$route.query.q) {
       data.a = this.$route.query.q;
     }
+    this.$router.push("/?q=" + data.a);
+    
     const response = await axios
       .get(
         process.env.VUE_APP_API_BASEURL +
@@ -129,6 +130,7 @@ export default {
     search_video: async function () {
       const ta3 = document.getElementById("searchTextId").value;
       vm.a = ta3;
+      this.$router.push("/?q=" + ta3);
       console.log(vm.a);
       const response = await axios.get(
         process.env.VUE_APP_API_BASEURL +
