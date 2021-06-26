@@ -65,14 +65,17 @@
             md="4"
             lg="3"
           >
-            <div class="card" elevation="1">
-              <router-link :to="'/video/' + article.contentId">
+            <router-link
+              :to="'/video/' + article.contentId"
+              style="text-decoration: none; color: black"
+            >
+              <div class="card" elevation="1">
                 <figure>
                   <img width="100%" height="170" :src="article.thumbnailUrl" />
                 </figure>
-              </router-link>
-              <p>{{ article.title }}</p>
-            </div>
+                <p>{{ article.title }}</p>
+              </div>
+            </router-link>
           </v-col>
         </v-row>
       </v-container>
@@ -109,7 +112,7 @@ export default {
       data.a = this.$route.query.q;
     }
     this.$router.push("/?q=" + data.a);
-    
+
     const response = await axios
       .get(
         process.env.VUE_APP_API_BASEURL +

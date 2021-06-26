@@ -195,9 +195,12 @@
           </v-col>
           <v-col sm="4">
             <div v-for="article in articles" :key="article.contentId">
-              <v-row>
-                <v-col sm="7">
-                  <router-link :to="'/video/' + article.contentId">
+              <router-link
+                :to="'/video/' + article.contentId"
+                style="text-decoration: none; color: black"
+              >
+                <v-row @click="$vuetify.goTo(0)">
+                  <v-col sm="7">
                     <figure>
                       <img
                         width="100%"
@@ -206,17 +209,17 @@
                         @click="$vuetify.goTo(0)"
                       />
                     </figure>
-                  </router-link>
-                </v-col>
-                <v-col sm="5">
-                  <p v-if="article.title.length < 35">
-                    {{ article.title }}
-                  </p>
-                  <p v-else>
-                    {{ article.title.substring(0, 35) + "..." }}
-                  </p>
-                </v-col>
-              </v-row>
+                  </v-col>
+                  <v-col sm="5">
+                    <p v-if="article.title.length < 35">
+                      {{ article.title }}
+                    </p>
+                    <p v-else>
+                      {{ article.title.substring(0, 35) + "..." }}
+                    </p>
+                  </v-col>
+                </v-row>
+              </router-link>
             </div>
           </v-col>
         </v-row>
@@ -309,8 +312,9 @@ export default {
       });
     console.log("152", response.data.niconico_response.user);
     const userinfo = response.data.niconico_response.user;
-    if(!nowVideo.userId){
-      this.userIconImage = "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
+    if (!nowVideo.userId) {
+      this.userIconImage =
+        "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
       this.channelTitle = "未登録ユーザー";
     }
     this.userIconImage = userinfo.thumbnail_url;
@@ -367,9 +371,10 @@ export default {
         });
       console.log("152", response.data.niconico_response.user);
       const userinfo = response.data.niconico_response.user;
-      if(!nowVideo.userId){
-      this.userIconImage = "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
-      this.channelTitle = "未登録ユーザー";
+      if (!nowVideo.userId) {
+        this.userIconImage =
+          "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
+        this.channelTitle = "未登録ユーザー";
       }
       this.userIconImage = userinfo.thumbnail_url;
       this.channelTitle = userinfo.nickname;
