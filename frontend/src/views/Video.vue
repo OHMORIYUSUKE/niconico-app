@@ -222,11 +222,6 @@
         </v-row>
       </v-container>
     </div>
-    <v-footer padless color="grey lighten-3">
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>NicoTube</strong>
-      </v-col>
-    </v-footer>
   </v-app>
 </template>
 
@@ -314,6 +309,10 @@ export default {
       });
     console.log("152", response.data.niconico_response.user);
     const userinfo = response.data.niconico_response.user;
+    if(!nowVideo.userId){
+      this.userIconImage = "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
+      this.channelTitle = "未登録ユーザー";
+    }
     this.userIconImage = userinfo.thumbnail_url;
     this.channelTitle = userinfo.nickname;
   },
@@ -368,6 +367,10 @@ export default {
         });
       console.log("152", response.data.niconico_response.user);
       const userinfo = response.data.niconico_response.user;
+      if(!nowVideo.userId){
+      this.userIconImage = "http://dcdn.cdn.nimg.jp/nicoaccount/usericon/defaults/blank.jpg";
+      this.channelTitle = "未登録ユーザー";
+      }
       this.userIconImage = userinfo.thumbnail_url;
       this.channelTitle = userinfo.nickname;
 
